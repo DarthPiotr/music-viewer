@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>INF148187148204.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MusicViewer.Core\MusicViewer.Core.csproj" />
+    <ProjectReference Include="..\MusicVIewer.Interfaces\MusicViewer.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

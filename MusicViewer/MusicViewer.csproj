@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>INF148187148204.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MusicViewer.BLC\MusicViewer.BLC.csproj" />
+    <ProjectReference Include="..\MusicViewer.Core\MusicViewer.Core.csproj" />
+    <ProjectReference Include="..\MusicVIewer.Interfaces\MusicViewer.Interfaces.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="call &quot;$(SolutionDir)scripts\post-build.bat&quot; &quot;$(SolutionDir)&quot; &quot;$(OutDir)&quot;&#xD;&#xA;" />
+  </Target>
+
+</Project>
