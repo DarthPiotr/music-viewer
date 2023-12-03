@@ -89,7 +89,7 @@ namespace INF148187148204.MusicViewer.DAOSQL
 
         public void SaveTrack(ITrack track)
         {
-            var dbTrack = GetArtist(track.ID);
+            var dbTrack = GetTrack(track.ID);
             if (dbTrack == null)
             {
                 context.Add(track);
