@@ -110,12 +110,13 @@ namespace INF148187148204.MusicViewer.DAOMock
 
         public void DeleteArtist(int Id)
         {
-            artists.Remove((Artist)GetArtist(Id));
+            tracks.RemoveAll(t => t.Artist.ID == Id);
+            artists.RemoveAll(a => a.ID == Id);
         }
 
         public void DeleteTrack(int Id)
         {
-            tracks.Remove((Track)GetTrack(Id));
+            tracks.RemoveAll(t => t.ID == Id);
         }
 
         public IEnumerable<IArtist> GetAllArtists()
@@ -140,23 +141,13 @@ namespace INF148187148204.MusicViewer.DAOMock
 
         public void SaveArtist(IArtist artist)
         {
-            IArtist daoArtist = GetArtist(artist.ID);
-
-            if (daoArtist != null)
-            {
-                artists.Remove((Artist)daoArtist);
-            }
+            artists.RemoveAll(a => a.ID == artist.ID);
             artists.Add((Artist)artist);
         }
 
         public void SaveTrack(ITrack track)
         {
-            ITrack daoTrack = GetTrack(track.ID);
-
-            if (daoTrack != null)
-            {
-                tracks.Remove((Track)daoTrack);
-            }
+            tracks.RemoveAll(t => t.ID ==  track.ID);
             tracks.Add((Track)track);
         }
     }
