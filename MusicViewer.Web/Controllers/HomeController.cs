@@ -1,6 +1,6 @@
 ﻿using INF148187148204.MusicViewer.BLC;
 using Microsoft.AspNetCore.Mvc;
-using MusicViewer.Web.Models;
+using INF148187148204.MusicViewer.Web.Models;
 using System.Diagnostics;
 
 namespace MusicViewer.Web.Controllers
