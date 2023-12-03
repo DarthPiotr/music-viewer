@@ -3,6 +3,7 @@
     public interface IArtist
     {
         int ID { get; set; }
+
         string Name { get; set; }
     }
 }

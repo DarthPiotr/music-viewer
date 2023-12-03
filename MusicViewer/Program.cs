@@ -8,6 +8,9 @@ namespace INF148187148204.MusicViewer
     {
         static void Main(string[] args)
         {
+            string execPath = System.Reflection.Assembly.GetEntryAssembly().Location;
+            Console.WriteLine("Executing from: {0}", execPath);
+
             string libraryName = System.Configuration.ConfigurationManager.AppSettings["DBLibraryName"];
             BLController blc = BLController.GetInstance(libraryName);
 
@@ -20,7 +23,7 @@ namespace INF148187148204.MusicViewer
             Console.WriteLine("=== Cars ===");
             foreach (ITrack t in blc.GetTracks())
             {
-                Console.WriteLine("[{0}] {1} - {2} ({3}) {4}", 
+                Console.WriteLine("[{0}] {1} - {2} ({3}) {4}",
                     t.ID, t.Artist.Name, t.Name, t.ReleaseYear, t.Genre);
             }
         }

@@ -108,6 +108,16 @@ namespace INF148187148204.MusicViewer.DAOMock
             return new Track();
         }
 
+        public void DeleteArtist(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteTrack(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<IArtist> GetAllArtists()
         {
             return artists;
@@ -116,6 +126,26 @@ namespace INF148187148204.MusicViewer.DAOMock
         public IEnumerable<ITrack> GetAllTracks()
         {
             return tracks;
+        }
+
+        public IArtist GetArtist(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ITrack GetTrack(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveArtist(IArtist artist)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveTrack(ITrack artist)
+        {
+            throw new NotImplementedException();
         }
     }
 }
