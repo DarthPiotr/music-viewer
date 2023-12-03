@@ -19,17 +19,32 @@ namespace INF148187148204.MusicViewer.Web.Controllers
         }
 
         // GET: ArtistsController
-        public ActionResult Index()
+        public ActionResult Index(string? query)
         {
-            return View(BLC.GetArtists());
+            var artists = BLC.GetArtists();
+            ViewBag.Query = query;
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                query = query.ToLower();
+                artists = artists.Where(a =>
+                        a.Name.ToLower().Contains(query)
+                    );
+            }
+
+            return View(artists);
         }
 
         // GET: ArtistsController/Details/5
         public ActionResult Details(int id)
         {
             ViewBag.Tracks = BLC.GetTracks().Where(t => t.Artist.ID == id);
-
-            return View(BLC.GetArtist(id));
+            var artist = BLC.GetArtist(id);
+            if (artist == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(artist);
         }
 
         // GET: ArtistsController/Create
@@ -60,7 +75,12 @@ namespace INF148187148204.MusicViewer.Web.Controllers
         // GET: ArtistsController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(BLC.GetArtist(id));
+            var artist = BLC.GetArtist(id);
+            if (artist == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(artist);
         }
 
         // POST: ArtistsController/Edit/5
@@ -71,6 +91,10 @@ namespace INF148187148204.MusicViewer.Web.Controllers
             try
             {
                 var artist = BLC.GetArtist(id);
+                if (artist == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
                 artist.Name = collection["Name"].ToString();
                 BLC.SaveArtist(artist);
 
@@ -85,7 +109,12 @@ namespace INF148187148204.MusicViewer.Web.Controllers
         // GET: ArtistsController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(BLC.GetArtist(id));
+            var artist = BLC.GetArtist(id);
+            if (artist == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(artist);
         }
 
         // POST: ArtistsController/Delete/5

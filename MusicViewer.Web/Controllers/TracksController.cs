@@ -47,6 +47,10 @@ namespace INF148187148204.MusicViewer.Web.Controllers
 		public ActionResult Details(int id)
 		{
             var track = BLC.GetTrack(id);
+            if (track == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
             return View(track);
         }
 
@@ -82,10 +86,14 @@ namespace INF148187148204.MusicViewer.Web.Controllers
 		// GET: TracksController/Edit/5
 		public ActionResult Edit(int id)
 		{
-            ViewBag.Artists = BLC.GetArtists();
 
             var track = BLC.GetTrack(id);
-			return View(track);
+            if (track == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            ViewBag.Artists = BLC.GetArtists();
+            return View(track);
 		}
 
 		// POST: TracksController/Edit/5
@@ -96,6 +104,12 @@ namespace INF148187148204.MusicViewer.Web.Controllers
 			try
 			{
 				var track = BLC.GetTrack(id);
+
+				if (track == null)
+				{
+                    return RedirectToAction(nameof(Index));
+                }
+
 				track.Name = collection["Name"].ToString();
 				track.Genre = (Genre)Convert.ToInt32(collection["Genre"].ToString());
 				track.ReleaseYear = Convert.ToInt32(collection["ReleaseYear"].ToString());
@@ -113,7 +127,12 @@ namespace INF148187148204.MusicViewer.Web.Controllers
 		// GET: TracksController/Delete/5
 		public ActionResult Delete(int id)
 		{
+
             var track = BLC.GetTrack(id);
+            if (track == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
             return View(track);
         }
 
