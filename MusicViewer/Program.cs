@@ -20,9 +20,18 @@ namespace INF148187148204.MusicViewer
                 Console.WriteLine("[{0}] {1}", a.ID, a.Name);
             }
 
-            //var art = blc.GetArtists().ToList()[0];
-            //art.Name = "NEW NAME LOL";
-            //blc.SaveArtist(art);
+            Console.WriteLine("=== Tracks ===");
+            foreach (ITrack t in blc.GetTracks())
+            {
+                Console.WriteLine("[{0}] {1} - {2} ({3}) {4}",
+                    t.ID, t.Artist.Name, t.Name, t.ReleaseYear, t.Genre);
+            }
+
+            Console.WriteLine("=== Stuff happened ===");
+            var art = blc.GetArtists().ToList()[0];
+            //art.Name = "OLD NAME :<";
+            blc.DeleteArtist(art.ID);
+            
 
             Console.WriteLine("=== Artists ===");
             foreach (IArtist a in blc.GetArtists())

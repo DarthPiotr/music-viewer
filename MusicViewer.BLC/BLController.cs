@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -39,7 +40,13 @@ namespace INF148187148204.MusicViewer.BLC
         public IEnumerable<IArtist> GetArtists() => dao.GetAllArtists();
         public IEnumerable<ITrack> GetTracks() => dao.GetAllTracks();
 
+        public IArtist GetArtist(int Id) => dao.GetArtist(Id); 
+        public ITrack GetTrack(int Id) => dao.GetTrack(Id); 
+
         public void SaveArtist(IArtist artist)=> dao.SaveArtist(artist);
         public void SaveTrack(ITrack track)=> dao.SaveTrack(track);
+
+        public void DeleteArtist(int Id) => dao.DeleteArtist(Id);
+        public void DeleteTrack(int Id) => dao.DeleteTrack(Id);
     }
 }
