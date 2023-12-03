@@ -38,5 +38,8 @@ namespace INF148187148204.MusicViewer.BLC
 
         public IEnumerable<IArtist> GetArtists() => dao.GetAllArtists();
         public IEnumerable<ITrack> GetTracks() => dao.GetAllTracks();
+
+        public void SaveArtist(IArtist artist)=> dao.SaveArtist(artist);
+        public void SaveTrack(ITrack track)=> dao.SaveTrack(track);
     }
 }

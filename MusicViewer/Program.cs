@@ -14,13 +14,23 @@ namespace INF148187148204.MusicViewer
             string libraryName = System.Configuration.ConfigurationManager.AppSettings["DBLibraryName"];
             BLController blc = BLController.GetInstance(libraryName);
 
-            Console.WriteLine("=== Producers ===");
+            Console.WriteLine("=== Artists ===");
             foreach (IArtist a in blc.GetArtists())
             {
                 Console.WriteLine("[{0}] {1}", a.ID, a.Name);
             }
 
-            Console.WriteLine("=== Cars ===");
+            //var art = blc.GetArtists().ToList()[0];
+            //art.Name = "NEW NAME LOL";
+            //blc.SaveArtist(art);
+
+            Console.WriteLine("=== Artists ===");
+            foreach (IArtist a in blc.GetArtists())
+            {
+                Console.WriteLine("[{0}] {1}", a.ID, a.Name);
+            }
+
+            Console.WriteLine("=== Tracks ===");
             foreach (ITrack t in blc.GetTracks())
             {
                 Console.WriteLine("[{0}] {1} - {2} ({3}) {4}",

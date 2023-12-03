@@ -1,0 +1,6 @@
+echo "=== Pre Build Script ==="
+echo [INFO] Removing runtime directory
+rmdir /Q /S "$(OutDir)runtimes"
+echo [INFO] Removing all files
+del /Q "$(OutDir)*"
+echo "=== Pre Build Script: Success ==="

@@ -43,12 +43,14 @@ namespace INF148187148204.MusicViewer.DAOSQL
 
         public void DeleteArtist(int Id)
         {
-            throw new NotImplementedException();
+            context.Remove(GetArtist(Id));
+            context.SaveChanges();
         }
 
         public void DeleteTrack(int Id)
         {
-            throw new NotImplementedException();
+            context.Remove(GetTrack(Id));
+            context.SaveChanges();
         }
 
         public IEnumerable<IArtist> GetAllArtists()
@@ -63,22 +65,41 @@ namespace INF148187148204.MusicViewer.DAOSQL
 
         public IArtist GetArtist(int Id)
         {
-            throw new NotImplementedException();
+            return context.Artists.FirstOrDefault(e => e.ID == Id)!;
         }
 
         public ITrack GetTrack(int Id)
         {
-            throw new NotImplementedException();
+            return context.Tracks.FirstOrDefault(e => e.ID == Id)!;
         }
 
         public void SaveArtist(IArtist artist)
         {
-            throw new NotImplementedException();
+            var dbArtist = GetArtist(artist.ID);
+            if (dbArtist == null)
+            {
+                context.Add(artist);
+            } else
+            {
+                context.Update(artist);
+            }
+            
+            context.SaveChanges();
         }
 
-        public void SaveTrack(ITrack artist)
+        public void SaveTrack(ITrack track)
         {
-            throw new NotImplementedException();
+            var dbTrack = GetArtist(track.ID);
+            if (dbTrack == null)
+            {
+                context.Add(track);
+            }
+            else
+            {
+                context.Update(track);
+            }
+
+            context.SaveChanges();
         }
     }
 }

@@ -41,8 +41,4 @@
     <Exec Command="python &quot;$(SolutionDir)scripts\post-build.py&quot; &quot;$(SolutionDir)\&quot; &quot;$(OutDir)\&quot;&#xD;&#xA;" />
   </Target>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="echo &quot;=== Pre Build Script ===&quot;&#xD;&#xA;echo [INFO] Removing runtime directory&#xD;&#xA;rmdir /Q /S &quot;$(OutDir)runtimes&quot;&#xD;&#xA;echo [INFO] Removing all files&#xD;&#xA;del /Q &quot;$(OutDir)*&quot;&#xD;&#xA;echo &quot;=== Pre Build Script: Success ===&quot;" />
-  </Target>
-
 </Project>
