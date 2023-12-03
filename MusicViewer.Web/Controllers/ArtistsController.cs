@@ -27,6 +27,8 @@ namespace INF148187148204.MusicViewer.Web.Controllers
         // GET: ArtistsController/Details/5
         public ActionResult Details(int id)
         {
+            ViewBag.Tracks = BLC.GetTracks().Where(t => t.Artist.ID == id);
+
             return View(BLC.GetArtist(id));
         }
 
