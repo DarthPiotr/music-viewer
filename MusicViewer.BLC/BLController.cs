@@ -13,6 +13,8 @@ namespace INF148187148204.MusicViewer.BLC
     {
         private static BLController? blc;
         private IDAO dao;
+        private IEnumerable<IArtist> artists { get; set; }
+        private IEnumerable<ITrack> tracks { get; set; }
 
         private BLController(string libraryName)
         {
@@ -37,19 +39,57 @@ namespace INF148187148204.MusicViewer.BLC
             return blc;
         }
 
-        public IEnumerable<IArtist> GetArtists() => dao.GetAllArtists();
-        public IEnumerable<ITrack> GetTracks() => dao.GetAllTracks();
+        public IEnumerable<IArtist> GetArtists() 
+        { 
+            if(artists == null)
+                artists = dao.GetAllArtists();
+            return artists;
+        }
+        public IEnumerable<ITrack> GetTracks()
+        {
+            if (tracks == null)
+                tracks = dao.GetAllTracks();
+            return tracks;
+        }
+        public IArtist GetArtist(int Id)
+        {
+            if(artists == null)
+                return dao.GetArtist(Id);
 
-        public IArtist GetArtist(int Id) => dao.GetArtist(Id); 
-        public ITrack GetTrack(int Id) => dao.GetTrack(Id);
+            return artists.FirstOrDefault(a => a.ID == Id)!;
+        }
+
+        public ITrack GetTrack(int Id)
+        {
+            if (tracks == null)
+                return dao.GetTrack(Id);
+
+            return tracks.FirstOrDefault(t => t.ID == Id)!;
+        }
 
         public IArtist CreateNewArtist() => dao.CreateNewArtist();
         public ITrack CreateNewTrack() => dao.CreateNewTrack();
 
-        public void SaveArtist(IArtist artist)=> dao.SaveArtist(artist);
-        public void SaveTrack(ITrack track)=> dao.SaveTrack(track);
+        public void SaveArtist(IArtist artist)
+        {
+            dao.SaveArtist(artist);
+            artists = dao.GetAllArtists();
+        }
+        public void SaveTrack(ITrack track)
+        {
+            dao.SaveTrack(track);
+            tracks = dao.GetAllTracks();
+        }
 
-        public void DeleteArtist(int Id) => dao.DeleteArtist(Id);
-        public void DeleteTrack(int Id) => dao.DeleteTrack(Id);
+        public void DeleteArtist(int Id)
+        {
+            dao.DeleteArtist(Id);
+            artists = dao.GetAllArtists();
+        }
+        public void DeleteTrack(int Id)
+        {
+            dao.DeleteTrack(Id);
+            tracks = dao.GetAllTracks();
+        }
     }
 }
