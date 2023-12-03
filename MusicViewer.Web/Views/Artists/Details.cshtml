@@ -7,7 +7,7 @@
 <h1>Details</h1>
 
 <div>
-    <h4>IArtist</h4>
+    <h4>Artist</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -23,6 +23,46 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
+    <h5>Artist tracks</h5>
+    <table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                    @Html.DisplayName("Name")
+            </th>
+            <th>
+                    @Html.DisplayName("Release Year")
+            </th>
+            <th>
+                    @Html.DisplayName("Genre")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var item in ViewBag.Tracks)
+            {
+            <tr>
+                <td>
+                        @(item.Name)
+                </td>
+                <td>
+                        @(item.ReleaseYear)
+                </td>
+                <td>
+                        @(item.Genre)
+                </td>
+                <td>
+                        @Html.ActionLink("Edit", "Edit", "/Tracks", new { id=item.ID }) |
+                        @Html.ActionLink("Details", "Details", "/Tracks", new { id=item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", "/Trakcs", new { id=item.ID })
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>
+
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new {  id = Model.ID }) |
