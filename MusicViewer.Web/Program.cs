@@ -1,4 +1,4 @@
-namespace MusicViewer.Web
+namespace INF148187148204.MusicViewer.Web
 {
     public class Program
     {

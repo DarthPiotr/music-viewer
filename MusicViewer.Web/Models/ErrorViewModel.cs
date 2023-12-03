@@ -1,4 +1,4 @@
-namespace MusicViewer.Web.Models
+namespace INF148187148204.MusicViewer.Web.Models
 {
     public class ErrorViewModel
     {
