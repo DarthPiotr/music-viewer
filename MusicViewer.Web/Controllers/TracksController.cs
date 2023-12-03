@@ -3,6 +3,7 @@ using INF148187148204.MusicViewer.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace INF148187148204.MusicViewer.Web.Controllers
 {
@@ -20,9 +21,26 @@ namespace INF148187148204.MusicViewer.Web.Controllers
 		}
 
         // GET: TracksController
-        public ActionResult Index()
+        public ActionResult Index(string? query)
 		{
-			return View(BLC.GetTracks());
+			var tracks = BLC.GetTracks();
+			var artists = BLC.GetArtists();
+            ViewBag.Query = query;
+
+
+            if (!string.IsNullOrEmpty(query))
+			{
+				query = query.ToLower();
+				tracks = tracks.Join(artists, 
+					t => t.Artist.ID, a => a.ID,
+					(t, a) => new { Track = t, Artist = a })
+					.Where(o =>
+						o.Track.Name.ToLower().Contains(query) ||
+						o.Track.ReleaseYear.ToString().Contains(query) ||
+						o.Artist.Name.ToLower().Contains(query)
+					).Select(o => o.Track);
+			}
+			return View(tracks);
 		}
 
 		// GET: TracksController/Details/5
