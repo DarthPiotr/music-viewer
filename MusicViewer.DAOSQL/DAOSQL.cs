@@ -13,7 +13,7 @@ namespace INF148187148204.MusicViewer.DAOSQL
 
         public DAOSQL()
         {
-            context = CreateDbContext(new string[] {});
+            context = CreateDbContext(new string[] { });
             context.Database.OpenConnection();
         }
 

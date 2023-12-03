@@ -28,9 +28,12 @@ namespace INF148187148204.MusicViewer
             }
 
             Console.WriteLine("=== Stuff happened ===");
-            var art = blc.GetArtists().ToList()[0];
-            //art.Name = "OLD NAME :<";
-            blc.DeleteArtist(art.ID);
+            var track = blc.CreateNewTrack();
+            track.Name = "MY NEW FANCY TRACK";
+            track.Artist = blc.GetArtist(3);
+            track.Genre = Core.Genre.Electronic;
+            track.ReleaseYear = 1998;
+            blc.SaveTrack(track);
             
 
             Console.WriteLine("=== Artists ===");
