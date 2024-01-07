@@ -13,6 +13,6 @@ public partial class ArtistPage : ContentPage
     private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
     {
 		ArtistViewModel artistViewModel = (e.Item as ArtistViewModel).Clone() as ArtistViewModel;
-		(BindingContext as ArtistCollectionViewModel).EditedArtist = artistViewModel;
+		(BindingContext as ArtistCollectionViewModel).SetEditingArtist(artistViewModel);
     }
 }

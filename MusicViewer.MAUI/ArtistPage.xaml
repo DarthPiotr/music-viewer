@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:INF148187148204.MusicViewer.MAUI.ViewModel"
              x:Class="INF148187148204.MusicViewer.MAUI.ArtistPage"
+             x:Name="ArtistContentPageName"
              Title="Artists">
     <VerticalStackLayout 
         
@@ -34,7 +35,12 @@
              ColumnDefinitions="100,*" 
              BindingContext="{Binding EditedArtist}">
             <Label Grid.Column="0" Grid.Row="0" Text="ID" />
-            <Entry Grid.Column="1" Grid.Row="0" Text="{Binding ID}" IsEnabled="False" />
+            <Entry Grid.Column="1" 
+                   Grid.Row="0" 
+                   Text="{Binding ID}" 
+                   IsEnabled="False" 
+                   IsVisible="{Binding BindingContext.EditingExisting,
+                        Source={x:Reference ArtistContentPageName}}" />
 
             <Label Grid.Column="0" Grid.Row="1" Text="Name" />
             <Entry Grid.Column="1" Grid.Row="1" Text="{Binding Name}" />
