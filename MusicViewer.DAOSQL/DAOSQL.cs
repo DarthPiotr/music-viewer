@@ -78,10 +78,10 @@ namespace INF148187148204.MusicViewer.DAOSQL
             var dbArtist = GetArtist(artist.ID);
             if (dbArtist == null)
             {
-                context.Add(artist);
+                context.Add(ConvertInterfaceToDAOType(artist));
             } else
             {
-                context.Update(artist);
+                context.Update(ConvertInterfaceToDAOType(artist));
             }
             
             context.SaveChanges();
@@ -92,14 +92,35 @@ namespace INF148187148204.MusicViewer.DAOSQL
             var dbTrack = GetTrack(track.ID);
             if (dbTrack == null)
             {
-                context.Add(track);
+                context.Add(ConvertInterfaceToDAOType(track));
             }
             else
             {
-                context.Update(track);
+                context.Update(ConvertInterfaceToDAOType(track));
             }
 
             context.SaveChanges();
+        }
+
+        public Artist ConvertInterfaceToDAOType(IArtist iartist)
+        {
+            Artist artist = new Artist();
+            artist.ID = iartist.ID;
+            artist.Name = iartist.Name;
+
+            return artist;
+        }
+
+        public Track ConvertInterfaceToDAOType(ITrack itrack)
+        {
+            Track track = new Track();
+            track.ID = itrack.ID;
+            track.Name = itrack.Name;
+            track.Artist = ConvertInterfaceToDAOType(itrack.Artist);
+            track.ReleaseYear = itrack.ReleaseYear;
+            track.Genre = itrack.Genre;
+
+            return track;
         }
     }
 }

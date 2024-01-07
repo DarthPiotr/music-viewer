@@ -142,13 +142,34 @@ namespace INF148187148204.MusicViewer.DAOMock
         public void SaveArtist(IArtist artist)
         {
             artists.RemoveAll(a => a.ID == artist.ID);
-            artists.Add((Artist)artist);
+            artists.Add(ConvertInterfaceToDAOType(artist));
         }
 
         public void SaveTrack(ITrack track)
         {
             tracks.RemoveAll(t => t.ID ==  track.ID);
-            tracks.Add((Track)track);
+            tracks.Add(ConvertInterfaceToDAOType(track));
+        }
+
+        public Artist ConvertInterfaceToDAOType(IArtist iartist)
+        {
+            Artist artist = new Artist();
+            artist.ID = iartist.ID;
+            artist.Name = iartist.Name;
+            
+            return artist;
+        }
+        
+        public Track ConvertInterfaceToDAOType(ITrack itrack)
+        {
+            Track track = new Track();
+            track.ID = itrack.ID;
+            track.Name = itrack.Name;
+            track.Artist = ConvertInterfaceToDAOType(itrack.Artist);
+            track.ReleaseYear = itrack.ReleaseYear;
+            track.Genre = itrack.Genre;
+
+            return track;
         }
     }
 }
