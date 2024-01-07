@@ -5,9 +5,8 @@
              x:Class="INF148187148204.MusicViewer.MAUI.ArtistPage"
              x:Name="ArtistContentPageName"
              Title="Artists">
-    <VerticalStackLayout 
-        
-        >
+
+    <VerticalStackLayout>
         <ListView ItemsSource="{Binding Artists}" ItemTapped="ListView_ItemTapped">
             <ListView.Header>
                 <HorizontalStackLayout Spacing="10">
