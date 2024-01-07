@@ -2,7 +2,7 @@
 @using INF148187148204.MusicViewer.Core;
 @{
     ViewData["Title"] = "Edit";
-    var genres = Enum.GetValues(typeof(Genre)).Cast<Genre>();
+    IEnumerable<Genre> genres = Enum.GetValues(typeof(Genre)).Cast<Genre>();
 }
 
 <h1>Edit</h1>

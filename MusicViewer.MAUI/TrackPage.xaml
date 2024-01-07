@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:INF148187148204.MusicViewer.MAUI.ViewModel"
              x:Class="INF148187148204.MusicViewer.MAUI.TrackPage"
+             x:Name="TrackContentPageName"
              Title="Tracks">
     <VerticalStackLayout>
         <ListView ItemsSource="{Binding Tracks}">
@@ -11,16 +12,47 @@
                     <ViewCell>
                         <Border Stroke="Aqua" StrokeThickness="2">
                             <HorizontalStackLayout x:DataType="viewmodel:TrackViewModel">
-                                <Label Text="{Binding ID}" WidthRequest="100" />
-                                <Label Text="{Binding Name}" WidthRequest="50" />
-                                <Label Text="{Binding ReleaseYear}" WidthRequest="50" />
-                                <Label Text="{Binding Artist.Name}" WidthRequest="50" />
-                                <Label Text="{Binding Genre}" WidthRequest="50" />
+                                <Label Text="{Binding ID}" />
+                                <Label Text="{Binding Name}" />
+                                <Label Text="{Binding ReleaseYear}" />
+                                <Label Text="{Binding Artist.Name}" />
+                                <Label Text="{Binding Genre}" />
                             </HorizontalStackLayout>
                         </Border>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <Grid 
+             RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" 
+             ColumnDefinitions="100,*" 
+             BindingContext="{Binding EditedTrack}">
+            
+
+            <Label Grid.Column="0" Grid.Row="1" Text="Name" />
+            <Entry Grid.Column="1" Grid.Row="1" Text="{Binding Name}" />
+            
+            <Label Grid.Column="0" Grid.Row="2" Text="Release Year" />
+            <Entry Grid.Column="1" Grid.Row="2" Text="{Binding Year}" />
+            
+            <Label Grid.Column="0" Grid.Row="3" Text="Artist" />
+            <Picker Grid.Column="1" Grid.Row="3" ItemsSource="{Binding BindingContext.Artists,
+                        Source={x:Reference TrackContentPageName}}"
+                    ItemDisplayBinding="{Binding Name}"/>
+            
+            <Label Grid.Column="0" Grid.Row="4" Text="Genre" />
+            <Picker Grid.Column="1" Grid.Row="4" ItemsSource="{Binding BindingContext.Genres,
+                        Source={x:Reference TrackContentPageName}}"
+                    ItemDisplayBinding="{Binding .}"/>
+            
+        </Grid>
+
+        <HorizontalStackLayout>
+            <Button Text="New Track" Command="{Binding CreateNewTrackCommand}" />
+            <Button Text="Save Track" Command="{Binding SaveTrackCommand}" />
+            <Button Text="Delete Track" Command="{Binding DeleteTrackCommand}" />
+        </HorizontalStackLayout>
+
     </VerticalStackLayout>
 </ContentPage>

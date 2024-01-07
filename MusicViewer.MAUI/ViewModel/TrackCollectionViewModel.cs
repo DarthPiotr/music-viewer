@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using INF148187148204.MusicViewer.BLC;
+using INF148187148204.MusicViewer.Core;
 using INF148187148204.MusicViewer.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,12 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         [ObservableProperty]
         private ObservableCollection<TrackViewModel> tracks;
 
+        [ObservableProperty]
+        private IEnumerable<Genre> genres = Enum.GetValues(typeof(Genre)).Cast<Genre>();
+
+        [ObservableProperty]
+        private IEnumerable<IArtist> artists;
+
         private BLController blc;
 
         public TrackCollectionViewModel()
@@ -25,6 +32,8 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
 
             string libraryName = System.Configuration.ConfigurationManager.AppSettings["DBLibraryName"];
             blc = BLController.GetInstance(libraryName);
+
+            Artists = blc.GetArtists();
 
             foreach (ITrack track in blc.GetTracks())
             {
