@@ -21,25 +21,52 @@ namespace INF148187148204.MusicViewer.Web.Controllers
 		}
 
         // GET: TracksController
-        public ActionResult Index(string? query)
+        public ActionResult Index(string? query, string? yearOperator, int yearFilter)
 		{
 			var tracks = BLC.GetTracks();
 			var artists = BLC.GetArtists();
             ViewBag.Query = query;
+            ViewBag.YearOperator = yearOperator;
+            ViewBag.YearFilter = yearFilter;
 
+            var trackQuery = tracks.Join(artists,
+					t => t.Artist.ID, a => a.ID,
+					(t, a) => new { Track = t, Artist = a });
 
             if (!string.IsNullOrEmpty(query))
 			{
 				query = query.ToLower();
-				tracks = tracks.Join(artists, 
-					t => t.Artist.ID, a => a.ID,
-					(t, a) => new { Track = t, Artist = a })
-					.Where(o =>
+                trackQuery = trackQuery.Where(o =>
 						o.Track.Name.ToLower().Contains(query) ||
 						o.Track.ReleaseYear.ToString().Contains(query) ||
 						o.Artist.Name.ToLower().Contains(query)
-					).Select(o => o.Track);
+					);
 			}
+
+            if (yearFilter > 0)
+            {
+				switch (yearOperator)
+				{
+					case "<":
+						trackQuery = trackQuery.Where(o => o.Track.ReleaseYear < yearFilter);
+						break;
+					case ">":
+						trackQuery = trackQuery.Where(o => o.Track.ReleaseYear > yearFilter);
+						break;
+                    case "=":
+                        trackQuery = trackQuery.Where(o => o.Track.ReleaseYear == yearFilter);
+                        break;
+                    case "≤":
+                        trackQuery = trackQuery.Where(o => o.Track.ReleaseYear <= yearFilter);
+                        break;
+                    case "≥":
+                        trackQuery = trackQuery.Where(o => o.Track.ReleaseYear >= yearFilter);
+                        break;
+                }	
+            }
+
+            tracks = trackQuery.Select(o => o.Track);
+
 			return View(tracks);
 		}
 

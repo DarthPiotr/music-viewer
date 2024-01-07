@@ -6,16 +6,36 @@
 
 <h1>Index</h1>
 
-<form class="d-flex" role="search">
-	<div class="input-group">
-        <input type="text" class="form-control" typeof="search"placeholder="Search" aria-label="Search"
+<form class="col-md-4" role="search">
+    <div class="mb-3">
+        <label class="form-label" for="yearOperator">Search</label>
+        <input type="text" class="form-control" typeof="search" placeholder="Search" aria-label="Search"
                name="query" value="@ViewBag.Query">
-        <div class="input-group-append">
-            <button class="btn btn-secondary" type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-		</div>
+
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="yearOperator">Release Year</label>
+		<div class="input-group">
+			<select class="form-control" id="yearOperator" name="yearOperator">
+				<option selected="@(ViewBag.YearOperator == "<")">&lt;</option>
+				<option selected="@(ViewBag.YearOperator == ">")">&gt;</option>
+				<option selected="@(ViewBag.YearOperator == "≤")">&le;</option>
+				<option selected="@(ViewBag.YearOperator == "≥")">&ge;</option>
+				<option selected="@(ViewBag.YearOperator == "=")">=</option>
+			</select>
+			<input type="number" class="form-control" typeof="search" placeholder="Year" aria-label="Search"
+				   name="yearFilter" value="@(ViewBag.YearFilter <= 0 ? null : ViewBag.YearFilter)">
+        </div>
+		
 	</div>
+    <div class="mb-3">
+		<button class="btn btn-secondary" type="submit">
+			<i class="fa fa-search"></i> Search
+		</button>
+        <a href="@Url.Action("Index", "/Tracks")" class="btn btn-danger">
+            <i class="fa fa-close"></i> Clear
+        </a>
+    </div>
 </form>
 
 <p>
