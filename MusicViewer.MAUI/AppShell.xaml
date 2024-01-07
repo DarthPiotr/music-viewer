@@ -7,9 +7,21 @@
     Shell.FlyoutBehavior="Disabled"
     Title="INF148187148204.MusicViewer.MAUI">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <FlyoutItem>
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+        <ShellContent
+            Title="Tracks"
+            ContentTemplate="{DataTemplate local:TrackPage}"
+            Route="TracksPage" />
+        <ShellContent
+            Title="Artists"
+            ContentTemplate="{DataTemplate local:ArtistPage}"
+            Route="ArtistsPage" />
+    </FlyoutItem>
+    
+   
 
 </Shell>

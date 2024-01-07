@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using INF148187148204.MusicViewer.MAUI.ViewModel;
+using Microsoft.Extensions.Logging;
 
 namespace INF148187148204.MusicViewer.MAUI
 {
@@ -14,9 +15,13 @@ namespace INF148187148204.MusicViewer.MAUI
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            builder.Services.AddSingleton<ArtistCollectionViewModel>();
+            builder.Services.AddSingleton<ArtistPage>();
+            builder.Services.AddSingleton<TrackCollectionViewModel>();
+            builder.Services.AddSingleton<TrackPage>();
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

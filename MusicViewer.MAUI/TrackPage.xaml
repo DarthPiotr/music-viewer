@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:INF148187148204.MusicViewer.MAUI.ViewModel"
+             x:Class="INF148187148204.MusicViewer.MAUI.TrackPage"
+             Title="Tracks">
+    <VerticalStackLayout>
+        <ListView ItemsSource="{Binding Tracks}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Border Stroke="Aqua" StrokeThickness="2">
+                            <HorizontalStackLayout x:DataType="viewmodel:TrackViewModel">
+                                <Label Text="{Binding ID}" WidthRequest="100" />
+                                <Label Text="{Binding Name}" WidthRequest="50" />
+                                <Label Text="{Binding ReleaseYear}" WidthRequest="50" />
+                                <Label Text="{Binding Artist.Name}" WidthRequest="50" />
+                                <Label Text="{Binding Genre}" WidthRequest="50" />
+                            </HorizontalStackLayout>
+                        </Border>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>
