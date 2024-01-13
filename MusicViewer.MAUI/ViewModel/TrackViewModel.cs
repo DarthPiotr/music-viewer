@@ -31,6 +31,7 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
             iD = track.ID;
             name = track.Name;
             artist = track.Artist;
+            //artist = new ArtistViewModel(track.Artist);
             releaseYear = track.ReleaseYear;
             genre = track.Genre;
         }

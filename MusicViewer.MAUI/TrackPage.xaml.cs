@@ -9,4 +9,10 @@ public partial class TrackPage : ContentPage
 		InitializeComponent();
 		BindingContext = trackCollectionViewModel;
 	}
+
+    private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+    {
+        TrackViewModel trackViewModel = (e.Item as TrackViewModel).Clone() as TrackViewModel;
+        (BindingContext as TrackCollectionViewModel).SetEditingTrack(trackViewModel);
+    }
 }

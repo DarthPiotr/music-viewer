@@ -6,7 +6,7 @@
              x:Name="TrackContentPageName"
              Title="Tracks">
     <VerticalStackLayout>
-        <ListView ItemsSource="{Binding Tracks}">
+        <ListView ItemsSource="{Binding Tracks}" ItemTapped="ListView_ItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -34,17 +34,19 @@
             <Entry Grid.Column="1" Grid.Row="1" Text="{Binding Name}" />
             
             <Label Grid.Column="0" Grid.Row="2" Text="Release Year" />
-            <Entry Grid.Column="1" Grid.Row="2" Text="{Binding Year}" />
+            <Entry Grid.Column="1" Grid.Row="2" Text="{Binding ReleaseYear}" />
             
             <Label Grid.Column="0" Grid.Row="3" Text="Artist" />
             <Picker Grid.Column="1" Grid.Row="3" ItemsSource="{Binding BindingContext.Artists,
                         Source={x:Reference TrackContentPageName}}"
-                    ItemDisplayBinding="{Binding Name}"/>
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding Artist}"/>
             
             <Label Grid.Column="0" Grid.Row="4" Text="Genre" />
             <Picker Grid.Column="1" Grid.Row="4" ItemsSource="{Binding BindingContext.Genres,
                         Source={x:Reference TrackContentPageName}}"
-                    ItemDisplayBinding="{Binding .}"/>
+                    ItemDisplayBinding="{Binding .}"
+                    SelectedItem="{Binding Genre}"/>
             
         </Grid>
 
