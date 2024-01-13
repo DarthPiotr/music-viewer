@@ -16,7 +16,19 @@ namespace INF148187148204.MusicViewer.BLC
         private IEnumerable<IArtist> artists { get; set; }
         private IEnumerable<ITrack> tracks { get; set; }
 
+        public BLController()
+        {
+            string libraryName = System.Configuration.ConfigurationManager.AppSettings["DBLibraryName"] ?? "";
+
+            Setup(libraryName);
+        }
+
         private BLController(string libraryName)
+        {
+            Setup(libraryName);
+        }
+
+        private void Setup(string libraryName)
         {
             Assembly assembly = Assembly.UnsafeLoadFrom(libraryName);
             Type? typeToCreate = null;

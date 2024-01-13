@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using INF148187148204.MusicViewer.BLC;
 using INF148187148204.MusicViewer.MAUI.ViewModel;
 using Microsoft.Extensions.Logging;
 
@@ -21,6 +22,7 @@ namespace INF148187148204.MusicViewer.MAUI
             builder.Services.AddSingleton<ArtistPage>();
             builder.Services.AddSingleton<TrackCollectionViewModel>();
             builder.Services.AddSingleton<TrackPage>();
+            builder.Services.AddSingleton<BLController>();
 
 #if DEBUG
             builder.Logging.AddDebug();

@@ -26,14 +26,15 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         [ObservableProperty]
         private bool editingExisting = false;
 
-        public ArtistCollectionViewModel()
+        public ArtistCollectionViewModel(BLController blc)
         {
             Artists = new ObservableCollection<ArtistViewModel>();
-            string execPath = System.Reflection.Assembly.GetEntryAssembly().Location;
-            Console.WriteLine("Executing from: {0}", execPath);
+            //string execPath = System.Reflection.Assembly.GetEntryAssembly().Location;
+            //Console.WriteLine("Executing from: {0}", execPath);
 
-            string libraryName = System.Configuration.ConfigurationManager.AppSettings["DBLibraryName"];
-            blc = BLController.GetInstance(libraryName);
+            //string libraryName = System.Configuration.ConfigurationManager.AppSettings["DBLibraryName"];
+            //blc = BLController.GetInstance(libraryName);
+            this.blc = blc;
 
             foreach (IArtist artist in blc.GetArtists())
             {
