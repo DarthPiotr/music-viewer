@@ -12,7 +12,11 @@ public partial class TrackPage : ContentPage
 
     private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
     {
-        TrackViewModel trackViewModel = (e.Item as TrackViewModel).Clone() as TrackViewModel;
-        (BindingContext as TrackCollectionViewModel).SetEditingTrack(trackViewModel);
+        (BindingContext as TrackCollectionViewModel).OnItemTapped(sender, e);
+    }
+
+    private void TrackContentPageName_Appearing(object sender, EventArgs e)
+    {
+        (BindingContext as TrackCollectionViewModel).OnAppearing(sender, e);
     }
 }

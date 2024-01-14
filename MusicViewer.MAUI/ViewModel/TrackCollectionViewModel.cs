@@ -122,5 +122,15 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
             DeleteTrackCommand.NotifyCanExecuteChanged();
         }
 
+        public void OnItemTapped(object sender, ItemTappedEventArgs e)
+        { 
+            TrackViewModel? trackViewModel = (e.Item as TrackViewModel)!.Clone() as TrackViewModel;
+            SetEditingTrack(trackViewModel!);
+        }
+
+        public void OnAppearing(object sender, EventArgs e)
+        {
+            Artists = blc.GetArtists();
+        }
     }
 }

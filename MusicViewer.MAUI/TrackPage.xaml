@@ -4,7 +4,8 @@
              xmlns:viewmodel="clr-namespace:INF148187148204.MusicViewer.MAUI.ViewModel"
              x:Class="INF148187148204.MusicViewer.MAUI.TrackPage"
              x:Name="TrackContentPageName"
-             Title="Tracks">
+             Title="Tracks"
+             Appearing="TrackContentPageName_Appearing">
 
     <VerticalStackLayout>
         <ScrollView MinimumHeightRequest="300">
@@ -39,7 +40,7 @@
              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" 
              ColumnDefinitions="100,2*,*"  Margin="10"
              BindingContext="{Binding EditedTrack}" RowSpacing="3">
-
+            
             <Label Text="Name"
                    Grid.Column="0" Grid.Row="1" VerticalOptions="Center" />
             <Entry Text="{Binding Name}" 
