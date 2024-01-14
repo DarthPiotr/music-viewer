@@ -26,28 +26,25 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         private IEnumerable<IArtist> artists;
 
         [ObservableProperty]
-        private TrackViewModel editedTrack;
+        private TrackViewModel? editedTrack;
 
         [ObservableProperty]
         private bool editingExisting = false;
 
         private BLController blc;
 
-        public TrackCollectionViewModel()
+        public TrackCollectionViewModel(BLController blc)
         {
-            tracks = new ObservableCollection<TrackViewModel>();
-            string execPath = System.Reflection.Assembly.GetEntryAssembly().Location;
-            Console.WriteLine("Executing from: {0}", execPath);
+            this.blc = blc;
+            Artists = this.blc.GetArtists();
 
-            string libraryName = System.Configuration.ConfigurationManager.AppSettings["DBLibraryName"];
-            blc = BLController.GetInstance(libraryName);
-
-            Artists = blc.GetArtists();
-
-            foreach (ITrack track in blc.GetTracks())
+            List<TrackViewModel> list = new List<TrackViewModel>();
+            foreach (ITrack track in this.blc.GetTracks())
             {
-                tracks.Add(new TrackViewModel(track));
+                list.Add(new TrackViewModel(track));
             }
+
+            tracks = new ObservableCollection<TrackViewModel>(list.OrderBy(t => t.ID));
         }
 
         [RelayCommand]
@@ -65,16 +62,19 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         [RelayCommand(CanExecute = nameof(CanSaveTrack))]
         public void SaveTrack()
         {
-            blc.SaveTrack(EditedTrack);
+            blc.SaveTrack(EditedTrack!);
             EditingExisting = true;
 
-            Tracks = new ObservableCollection<TrackViewModel>();
+            List<TrackViewModel> list = new List<TrackViewModel>();
             foreach (ITrack track in blc.GetTracks())
             {
-                Tracks.Add(new TrackViewModel(track));
+                list.Add(new TrackViewModel(track));
             }
+            Tracks = new ObservableCollection<TrackViewModel>(list.OrderBy(t => t.ID));
+
+
             List<IArtist> tmp = Artists.ToList();
-            tmp[tmp.FindIndex(a => a.ID == EditedTrack.Artist.ID)] = EditedTrack.Artist;
+            tmp[tmp.FindIndex(a => a.ID == EditedTrack!.Artist.ID)] = EditedTrack!.Artist;
             Artists = tmp;
         }
 
@@ -100,7 +100,7 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         [RelayCommand(CanExecute = nameof(CanDeleteTrack))]
         public void DeleteTrack()
         {
-            blc.DeleteTrack(EditedTrack.ID);
+            blc.DeleteTrack(EditedTrack!.ID);
 
             Tracks = new ObservableCollection<TrackViewModel>();
             foreach (ITrack track in blc.GetTracks())
@@ -116,7 +116,7 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
             return EditingExisting;
         }
 
-        private void OnEditedTrackPropertyChanged(object sender, PropertyChangedEventArgs args)
+        private void OnEditedTrackPropertyChanged(object? sender, PropertyChangedEventArgs args)
         {
             SaveTrackCommand.NotifyCanExecuteChanged();
             DeleteTrackCommand.NotifyCanExecuteChanged();

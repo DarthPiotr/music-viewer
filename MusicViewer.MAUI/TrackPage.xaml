@@ -5,55 +5,74 @@
              x:Class="INF148187148204.MusicViewer.MAUI.TrackPage"
              x:Name="TrackContentPageName"
              Title="Tracks">
+
     <VerticalStackLayout>
-        <ListView ItemsSource="{Binding Tracks}" ItemTapped="ListView_ItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Border Stroke="Aqua" StrokeThickness="2">
-                            <HorizontalStackLayout x:DataType="viewmodel:TrackViewModel">
-                                <Label Text="{Binding ID}" />
-                                <Label Text="{Binding Name}" />
-                                <Label Text="{Binding ReleaseYear}" />
-                                <Label Text="{Binding Artist.Name}" />
-                                <Label Text="{Binding Genre}" />
-                            </HorizontalStackLayout>
-                        </Border>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <ScrollView MinimumHeightRequest="300">
+            <ListView ItemsSource="{Binding Tracks}" ItemTapped="ListView_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Border Stroke="Gray" StrokeThickness="1">
+                                <Grid x:DataType="viewmodel:TrackViewModel" RowDefinitions="*,*" ColumnDefinitions="60,*,*,*" Padding="2">
+                                    <Label Text="{Binding ID}" 
+                                           Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18"
+                                           Grid.Column="1" Grid.Row="0"/>
+                                    <Label Text="{Binding Artist.Name}" FontAttributes="Italic" 
+                                           Grid.Column="1" Grid.Row="1" />
+                                    <Label Text="{Binding ReleaseYear, StringFormat='Released: {0}'}" 
+                                           Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="Center" />
+                                    <Label Text="{Binding Genre, StringFormat='Genre: {0}' }" 
+                                           Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ScrollView>
+        
+
+        <Label Text="Selected Track:" FontAttributes="Bold" Margin="20,10"/>
 
         <Grid 
              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" 
-             ColumnDefinitions="100,*" 
-             BindingContext="{Binding EditedTrack}">
-            
+             ColumnDefinitions="100,2*,*"  Margin="10"
+             BindingContext="{Binding EditedTrack}" RowSpacing="3">
 
-            <Label Grid.Column="0" Grid.Row="1" Text="Name" />
-            <Entry Grid.Column="1" Grid.Row="1" Text="{Binding Name}" />
-            
-            <Label Grid.Column="0" Grid.Row="2" Text="Release Year" />
-            <Entry Grid.Column="1" Grid.Row="2" Text="{Binding ReleaseYear}" />
-            
-            <Label Grid.Column="0" Grid.Row="3" Text="Artist" />
-            <Picker Grid.Column="1" Grid.Row="3" ItemsSource="{Binding BindingContext.Artists,
-                        Source={x:Reference TrackContentPageName}}"
+            <Label Text="Name"
+                   Grid.Column="0" Grid.Row="1" VerticalOptions="Center" />
+            <Entry Text="{Binding Name}" 
+                   Grid.Column="1" Grid.Row="1" />
+
+            <Label Text="Release Year"
+                   Grid.Column="0" Grid.Row="2" VerticalOptions="Center" />
+            <Entry Text="{Binding ReleaseYear}"
+                   Grid.Column="1" Grid.Row="2" />
+
+            <Label Text="Artist"
+                Grid.Column="0" Grid.Row="3" VerticalOptions="Center" />
+            <Picker ItemsSource="{Binding BindingContext.Artists, Source={x:Reference TrackContentPageName}}"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedItem="{Binding Artist}"/>
-            
-            <Label Grid.Column="0" Grid.Row="4" Text="Genre" />
-            <Picker Grid.Column="1" Grid.Row="4" ItemsSource="{Binding BindingContext.Genres,
+                    SelectedItem="{Binding Artist}"
+                Grid.Column="1" Grid.Row="3" />
+
+            <Label Text="Genre"
+                   Grid.Column="0" Grid.Row="4" VerticalOptions="Center" />
+            <Picker ItemsSource="{Binding BindingContext.Genres,
                         Source={x:Reference TrackContentPageName}}"
                     ItemDisplayBinding="{Binding .}"
-                    SelectedItem="{Binding Genre}"/>
-            
+                    SelectedItem="{Binding Genre}"
+                    Grid.Column="1" Grid.Row="4"/>
         </Grid>
 
         <HorizontalStackLayout>
-            <Button Text="New Track" Command="{Binding CreateNewTrackCommand}" />
-            <Button Text="Save Track" Command="{Binding SaveTrackCommand}" />
-            <Button Text="Delete Track" Command="{Binding DeleteTrackCommand}" />
+            <Button Text="New Track" Command="{Binding CreateNewTrackCommand}" 
+                    Margin="20,10,10,10" BackgroundColor="{x:StaticResource Info}" TextColor="WhiteSmoke" />
+            <Button Text="Save Track" Command="{Binding SaveTrackCommand}" 
+                    Margin="10,10" BackgroundColor="{x:StaticResource Success}" TextColor="WhiteSmoke" />
+            <Button Text="Delete Track" Command="{Binding DeleteTrackCommand}" 
+                    Margin="10,10,20,10" BackgroundColor="{x:StaticResource Danger}" TextColor="WhiteSmoke" />
         </HorizontalStackLayout>
 
     </VerticalStackLayout>
