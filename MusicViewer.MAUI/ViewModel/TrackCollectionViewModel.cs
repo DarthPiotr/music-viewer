@@ -31,20 +31,17 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         [ObservableProperty]
         private bool editingExisting = false;
 
+        [ObservableProperty]
+        private TrackFilter filter;
+
         private BLController blc;
 
         public TrackCollectionViewModel(BLController blc)
         {
             this.blc = blc;
             Artists = this.blc.GetArtists();
-
-            List<TrackViewModel> list = new List<TrackViewModel>();
-            foreach (ITrack track in this.blc.GetTracks())
-            {
-                list.Add(new TrackViewModel(track));
-            }
-
-            tracks = new ObservableCollection<TrackViewModel>(list.OrderBy(t => t.ID));
+            Filter = new TrackFilter();
+            Search();
         }
 
         [RelayCommand]
@@ -114,6 +111,30 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         public bool CanDeleteTrack()
         {
             return EditingExisting;
+        }
+
+        [RelayCommand]
+        public void Search()
+        {
+            var allTracks = blc.GetTracks();
+            IEnumerable<ITrack>? filteredTracks = Filter.Filter(allTracks);
+
+
+            List<TrackViewModel> list = new List<TrackViewModel>();
+            foreach (ITrack track in filteredTracks)
+            {
+                list.Add(new TrackViewModel(track));
+            }
+            Tracks = new ObservableCollection<TrackViewModel>(list.OrderBy(t => t.ID));
+
+            CreateNewTrack();
+        }
+
+        [RelayCommand]
+        public void ClearSearch()
+        {
+            Filter = new TrackFilter();
+            Search();
         }
 
         private void OnEditedTrackPropertyChanged(object? sender, PropertyChangedEventArgs args)

@@ -8,6 +8,41 @@
              Appearing="TrackContentPageName_Appearing">
 
     <VerticalStackLayout>
+
+        <Grid RowDefinitions="Auto,Auto,Auto" 
+            ColumnDefinitions="100,*,5*,3*"  Margin="10"
+            BindingContext="{Binding Filter}" RowSpacing="3">
+
+            <Label Text="Seach"
+                   Grid.Row="0" Grid.Column="0" VerticalOptions="Center"/>
+            <Entry Text="{Binding Query}"
+                   Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+            <Label Text="Release Year" 
+                   Grid.Row="1" Grid.Column="0" VerticalOptions="Center" />
+            <Picker SelectedItem="{Binding Operator}"
+                Grid.Row="1" Grid.Column="1">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>&lt;</x:String>
+                        <x:String>≤</x:String>
+                        <x:String>=</x:String>
+                        <x:String>≥</x:String>
+                        <x:String>&gt;</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>    
+            </Picker>
+            <Entry Text="{Binding Year}"
+                Grid.Row="1" Grid.Column="2"  />
+        </Grid>
+
+        <HorizontalStackLayout>
+            <Button Text="Search" Command="{Binding SearchCommand}" 
+                    Margin="20,10,10,10" BackgroundColor="{x:StaticResource Info}" TextColor="WhiteSmoke" />
+            <Button Text="Clear" Command="{Binding ClearSearchCommand}" 
+                    Margin="20,10,10,10" BackgroundColor="{x:StaticResource Warning}" TextColor="WhiteSmoke" />
+        </HorizontalStackLayout>    
+
         <ScrollView MinimumHeightRequest="300">
             <ListView ItemsSource="{Binding Tracks}" ItemTapped="ListView_ItemTapped">
                 <ListView.ItemTemplate>
