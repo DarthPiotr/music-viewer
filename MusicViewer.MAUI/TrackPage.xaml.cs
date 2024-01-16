@@ -7,8 +7,9 @@ public partial class TrackPage : ContentPage
 	public TrackPage(TrackCollectionViewModel trackCollectionViewModel)
 	{
 		InitializeComponent();
-		BindingContext = trackCollectionViewModel;
-	}
+        BindingContext = trackCollectionViewModel;
+        var p = MyPicker;
+    }
 
     private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
     {
@@ -18,5 +19,6 @@ public partial class TrackPage : ContentPage
     private void TrackContentPageName_Appearing(object sender, EventArgs e)
     {
         (BindingContext as TrackCollectionViewModel)!.OnAppearing(sender, e);
+        var p = MyPicker;
     }
 }

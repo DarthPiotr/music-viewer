@@ -3,7 +3,9 @@ using INF148187148204.MusicViewer.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 
 namespace INF148187148204.MusicViewer.DAOSQL
 {
@@ -24,9 +26,16 @@ namespace INF148187148204.MusicViewer.DAOSQL
 
         public DataContext CreateDbContext(string[] args)
         {
+            string execPath = Assembly.GetEntryAssembly()!.Location;
+            string currentDir = Path.GetDirectoryName(execPath) ?? "";
+            string configPath = Path.Join(currentDir, "appsettings.json");
+
+
+            Debug.WriteLine(String.Format("\n\nReading database settings from: {0}", configPath));
+
             var builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(configPath, optional: true, reloadOnChange: true);
             IConfiguration configuration = builder.Build();
             return new DataContext(configuration);
         }
@@ -38,7 +47,8 @@ namespace INF148187148204.MusicViewer.DAOSQL
 
         public ITrack CreateNewTrack()
         {
-            return new Track();
+
+            return new Track() { Artist = new Artist() };
         }
 
         public void DeleteArtist(int Id)
@@ -55,12 +65,12 @@ namespace INF148187148204.MusicViewer.DAOSQL
 
         public IEnumerable<IArtist> GetAllArtists()
         {
-            return context.Artists;
+            return context.Artists.ToList();
         }
 
         public IEnumerable<ITrack> GetAllTracks()
         {
-            return context.Tracks;
+            return context.Tracks.Include(t=> t.Artist).ToList();
         }
 
         public IArtist GetArtist(int Id)
@@ -92,11 +102,14 @@ namespace INF148187148204.MusicViewer.DAOSQL
             var dbTrack = GetTrack(track.ID);
             if (dbTrack == null)
             {
-                context.Add(ConvertInterfaceToDAOType(track));
+                //context.Add(ConvertInterfaceToDAOType(track));
+                context.Add(track);
             }
             else
             {
-                context.Update(ConvertInterfaceToDAOType(track));
+                context.Update(track);
+                //var newTrack = ConvertInterfaceToDAOType(track);
+                //context.Entry<Track>()
             }
 
             context.SaveChanges();
@@ -104,7 +117,7 @@ namespace INF148187148204.MusicViewer.DAOSQL
 
         public Artist ConvertInterfaceToDAOType(IArtist iartist)
         {
-            Artist artist = new Artist();
+            Artist artist = (Artist)GetArtist(iartist.ID);
             artist.ID = iartist.ID;
             artist.Name = iartist.Name;
 
@@ -113,7 +126,7 @@ namespace INF148187148204.MusicViewer.DAOSQL
 
         public Track ConvertInterfaceToDAOType(ITrack itrack)
         {
-            Track track = new Track();
+            Track track = (Track)GetTrack(itrack.ID);
             track.ID = itrack.ID;
             track.Name = itrack.Name;
             track.Artist = ConvertInterfaceToDAOType(itrack.Artist);

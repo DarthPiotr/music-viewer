@@ -114,7 +114,7 @@ namespace INF148187148204.MusicViewer.DAOMock
             if (artists.Count > 0)
                 ID = artists.OrderByDescending(a => a.ID).FirstOrDefault().ID + 1;
 
-            return new Track() { ID=ID };
+            return new Track() { ID=ID, Artist = CreateNewArtist() };
         }
 
         public void DeleteArtist(int Id)

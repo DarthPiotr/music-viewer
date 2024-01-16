@@ -1,6 +1,7 @@
 ﻿using INF148187148204.MusicViewer.DAOSQL.BO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 using System.Reflection.Metadata;
 
 namespace INF148187148204.MusicViewer.DAOSQL
@@ -20,9 +21,10 @@ namespace INF148187148204.MusicViewer.DAOSQL
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string execPath = System.Reflection.Assembly.GetEntryAssembly().Location;
-            Console.WriteLine("Executing from: {0}", execPath);
             string connectionString = _configuration.GetConnectionString("Sqlite");
             optionsBuilder.UseSqlite(connectionString);
+
+            Debug.WriteLine(String.Format("\n\nUsing connection string: {0}", connectionString));
         }
     }
 }

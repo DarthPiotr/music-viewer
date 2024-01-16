@@ -90,8 +90,9 @@
                 Grid.Column="0" Grid.Row="3" VerticalOptions="Center" />
             <Picker ItemsSource="{Binding BindingContext.Artists, Source={x:Reference TrackContentPageName}}"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedItem="{Binding Artist}"
-                Grid.Column="1" Grid.Row="3" />
+                    SelectedItem="{Binding Artist.Artist, Mode=TwoWay}"
+                Grid.Column="1" Grid.Row="3"
+                    x:Name="MyPicker" />
 
             <Label Text="Genre"
                    Grid.Column="0" Grid.Row="4" VerticalOptions="Center" />

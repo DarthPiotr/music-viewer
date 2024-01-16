@@ -17,15 +17,19 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         [ObservableProperty]
         private string name;
 
+        public IArtist Artist { get; init; }
+
         public ArtistViewModel(IArtist artist)
         {
             iD = artist.ID;
             name = artist.Name;
+
+            Artist = artist;
         }
 
         public object Clone()
         {
-            return new ArtistViewModel(this);
+            return new ArtistViewModel(Artist);
         }
     }
 }

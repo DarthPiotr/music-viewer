@@ -59,7 +59,7 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         [RelayCommand(CanExecute = nameof(CanSaveTrack))]
         public void SaveTrack()
         {
-            blc.SaveTrack(EditedTrack!);
+            blc.SaveTrack(EditedTrack!.GetModifiedTrack());
             EditingExisting = true;
 
             List<TrackViewModel> list = new List<TrackViewModel>();
@@ -71,7 +71,7 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
 
 
             List<IArtist> tmp = Artists.ToList();
-            tmp[tmp.FindIndex(a => a.ID == EditedTrack!.Artist.ID)] = EditedTrack!.Artist;
+            tmp[tmp.FindIndex(a => a.ID == EditedTrack!.Artist.ID)] = ((ArtistViewModel)EditedTrack!.Artist).Artist;
             Artists = tmp;
         }
 
@@ -116,16 +116,23 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         [RelayCommand]
         public void Search()
         {
-            var allTracks = blc.GetTracks();
-            IEnumerable<ITrack>? filteredTracks = Filter.Filter(allTracks);
+            //var allTracks = blc.GetTracks();
+            //IEnumerable<ITrack>? filteredTracks = Filter.Filter(allTracks);
 
 
-            List<TrackViewModel> list = new List<TrackViewModel>();
-            foreach (ITrack track in filteredTracks)
+            //List<TrackViewModel> list = new List<TrackViewModel>();
+            //foreach (ITrack track in filteredTracks)
+            //{
+            //    list.Add(new TrackViewModel(track));
+            //}
+            //Tracks = new ObservableCollection<TrackViewModel>(list.OrderBy(t => t.ID));
+
+            Tracks = new ObservableCollection<TrackViewModel>();
+            foreach (ITrack track in blc.GetTracks())
             {
-                list.Add(new TrackViewModel(track));
+                Tracks.Add(new TrackViewModel(track));
             }
-            Tracks = new ObservableCollection<TrackViewModel>(list.OrderBy(t => t.ID));
+
 
             CreateNewTrack();
         }
@@ -144,14 +151,14 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         }
 
         public void OnItemTapped(object sender, ItemTappedEventArgs e)
-        { 
+        {
             TrackViewModel? trackViewModel = (e.Item as TrackViewModel)!.Clone() as TrackViewModel;
             SetEditingTrack(trackViewModel!);
         }
 
         public void OnAppearing(object sender, EventArgs e)
         {
-            Artists = blc.GetArtists();
+            // Artists = blc.GetArtists();
         }
     }
 }

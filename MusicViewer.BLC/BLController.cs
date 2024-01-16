@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -20,6 +21,13 @@ namespace INF148187148204.MusicViewer.BLC
         {
             string libraryName = System.Configuration.ConfigurationManager.AppSettings["DBLibraryName"] ?? "";
 
+            if (!Path.IsPathFullyQualified(libraryName))
+            {
+                string execPath = Assembly.GetEntryAssembly()!.Location;
+                string currentDir = Path.GetDirectoryName(execPath) ?? "";
+                libraryName = Path.Join(currentDir, libraryName);
+            }
+
             Setup(libraryName);
         }
 
@@ -30,6 +38,7 @@ namespace INF148187148204.MusicViewer.BLC
 
         private void Setup(string libraryName)
         {
+            Debug.WriteLine(String.Format("\n\nLoading library: {0}", libraryName));
             Assembly assembly = Assembly.UnsafeLoadFrom(libraryName);
             Type? typeToCreate = null;
 
