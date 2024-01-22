@@ -24,7 +24,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicViewer.DAOSQL", "Music
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicViewer.Web", "MusicViewer.Web\MusicViewer.Web.csproj", "{DDDACBF3-0EAD-4035-BD78-C68023BA54B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicViewer.MAUI", "MusicViewer.MAUI\MusicViewer.MAUI.csproj", "{EA521EC7-B20A-4DF6-B263-830473ED01DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicViewer.MAUI", "MusicViewer.MAUI\MusicViewer.MAUI.csproj", "{EA521EC7-B20A-4DF6-B263-830473ED01DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicViewer.DAOMock.Test", "MusicVIewer.DAOMock.Test\MusicViewer.DAOMock.Test.csproj", "{8C36B8BD-86C1-4112-9024-0625B3798957}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +68,10 @@ Global
 		{EA521EC7-B20A-4DF6-B263-830473ED01DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA521EC7-B20A-4DF6-B263-830473ED01DF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA521EC7-B20A-4DF6-B263-830473ED01DF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8C36B8BD-86C1-4112-9024-0625B3798957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C36B8BD-86C1-4112-9024-0625B3798957}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C36B8BD-86C1-4112-9024-0625B3798957}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C36B8BD-86C1-4112-9024-0625B3798957}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
