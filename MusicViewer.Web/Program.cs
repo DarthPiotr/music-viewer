@@ -1,3 +1,6 @@
+using INF148187148204.MusicViewer.BLC;
+using Microsoft.AspNetCore.Rewrite;
+
 namespace INF148187148204.MusicViewer.Web
 {
     public class Program
@@ -7,7 +10,14 @@ namespace INF148187148204.MusicViewer.Web
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddServerSideBlazor();
+
+            builder.Services.AddSingleton<BLController>();
+
 
             var app = builder.Build();
 
@@ -25,6 +35,11 @@ namespace INF148187148204.MusicViewer.Web
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapBlazorHub();
+            var rewriteOptions = new RewriteOptions();
+            rewriteOptions.AddRewrite("_blazor(.*)", "/_blazor$1", skipRemainingRules: true);
+            app.UseRewriter(rewriteOptions);
 
             app.Run();
         }

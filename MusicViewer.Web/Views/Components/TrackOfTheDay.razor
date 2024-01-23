@@ -1,0 +1,29 @@
+﻿@using INF148187148204.MusicViewer.Interfaces
+
+@code
+{
+	public ITrack SelectedTrack { get; set; }
+
+	private void NewRandomTrack()
+	{
+		RefreshTracks();
+		SelectedTrack = RandomTrack();
+	}
+}
+
+<figure class="text-center">
+	<p>Track of the day!</p>
+	<blockquote class="blockquote">
+		<p>@SelectedTrack.Name</p>
+	</blockquote>
+	<figcaption class="blockquote-footer">
+		@SelectedTrack.Artist.Name, <cite title="Year">@SelectedTrack.ReleaseYear</cite>
+	</figcaption>
+
+	<button @onclick="NewRandomTrack"
+			type="button" class="btn btn-outline-secondary">
+		Losuj ponownie!
+	</button>
+</figure>
+
+
