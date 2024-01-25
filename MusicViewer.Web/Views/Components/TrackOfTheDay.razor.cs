@@ -26,6 +26,10 @@ namespace INF148187148204.MusicViewer.Web.Views.Components
 
         public ITrack RandomTrack()
         {
+            if (Tracks.Count == 0)
+            {
+                return BLC.CreateNewTrack();
+            }
 			int randomIndex = random.Next(0, Tracks.Count);
 			return Tracks[randomIndex];
 		}

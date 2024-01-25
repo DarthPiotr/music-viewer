@@ -70,9 +70,9 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
             Tracks = new ObservableCollection<TrackViewModel>(list.OrderBy(t => t.ID));
 
 
-            List<IArtist> tmp = Artists.ToList();
-            tmp[tmp.FindIndex(a => a.ID == EditedTrack!.Artist.ID)] = ((ArtistViewModel)EditedTrack!.Artist).Artist;
-            Artists = tmp;
+            //List<IArtist> tmp = Artists.ToList();
+            //tmp[tmp.FindIndex(a => a.ID == EditedTrack!.Artist.ID)] = ((ArtistViewModel)EditedTrack!.Artist).Artist;
+            //Artists = tmp;
         }
 
 
@@ -158,7 +158,9 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
 
         public void OnAppearing(object sender, EventArgs e)
         {
-            // Artists = blc.GetArtists();
-        }
+            Artists = blc.GetArtists();
+            Search();
+
+		}
     }
 }

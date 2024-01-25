@@ -15,6 +15,7 @@ namespace INF148187148204.MusicViewer.Core
         Pop,
         Electronic,
         Jazz,
-        Classical
+        Classical,
+        Rap
     }
 }

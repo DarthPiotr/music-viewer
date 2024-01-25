@@ -88,11 +88,15 @@ namespace INF148187148204.MusicViewer.DAOSQL
             var dbArtist = GetArtist(artist.ID);
             if (dbArtist == null)
             {
-                context.Add(ConvertInterfaceToDAOType(artist));
-            } else
+                //context.Add(ConvertInterfaceToDAOType(artist));
+                context.Add(artist);
+
+			} else
             {
-                context.Update(ConvertInterfaceToDAOType(artist));
-            }
+                //context.Update(ConvertInterfaceToDAOType(artist));
+				context.Update(artist);
+
+			}
             
             context.SaveChanges();
         }
