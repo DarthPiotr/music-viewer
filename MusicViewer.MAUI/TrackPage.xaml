@@ -41,33 +41,31 @@
                     Margin="20,10,10,10" BackgroundColor="{x:StaticResource Info}" TextColor="WhiteSmoke" />
             <Button Text="Clear" Command="{Binding ClearSearchCommand}" 
                     Margin="20,10,10,10" BackgroundColor="{x:StaticResource Warning}" TextColor="WhiteSmoke" />
-        </HorizontalStackLayout>    
+        </HorizontalStackLayout>
 
-        <ScrollView MinimumHeightRequest="300">
-            <ListView ItemsSource="{Binding Tracks}" ItemTapped="ListView_ItemTapped">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Border Stroke="Gray" StrokeThickness="1">
-                                <Grid x:DataType="viewmodel:TrackViewModel" RowDefinitions="*,*" ColumnDefinitions="60,*,*,*" Padding="2">
-                                    <Label Text="{Binding ID}" 
+        <ListView ItemsSource="{Binding Tracks}" ItemTapped="ListView_ItemTapped" MaximumHeightRequest="300">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Border Stroke="Gray" StrokeThickness="1">
+                            <Grid x:DataType="viewmodel:TrackViewModel" RowDefinitions="*,*" ColumnDefinitions="60,*,*,*" Padding="2">
+                                <Label Text="{Binding ID}" 
                                            Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18"
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18"
                                            Grid.Column="1" Grid.Row="0"/>
-                                    <Label Text="{Binding Artist.Name}" FontAttributes="Italic" 
+                                <Label Text="{Binding Artist.Name}" FontAttributes="Italic" 
                                            Grid.Column="1" Grid.Row="1" />
-                                    <Label Text="{Binding ReleaseYear, StringFormat='Released: {0}'}" 
+                                <Label Text="{Binding ReleaseYear, StringFormat='Released: {0}'}" 
                                            Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="Center" />
-                                    <Label Text="{Binding Genre, StringFormat='Genre: {0}' }" 
+                                <Label Text="{Binding Genre, StringFormat='Genre: {0}' }" 
                                            Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" VerticalOptions="Center" />
-                                </Grid>
-                            </Border>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </ScrollView>
-        
+                            </Grid>
+                        </Border>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
 
         <Label Text="Selected Track:" FontAttributes="Bold" Margin="20,10"/>
 
@@ -88,9 +86,9 @@
 
             <Label Text="Artist"
                 Grid.Column="0" Grid.Row="3" VerticalOptions="Center" />
-            <Picker ItemsSource="{Binding BindingContext.Artists, Source={x:Reference TrackContentPageName}}"
+            <Picker ItemsSource="{Binding BindingContext.Artists, Source={x:Reference TrackContentPageName}, Mode=TwoWay}"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedItem="{Binding Artist.Artist, Mode=TwoWay}"
+                    SelectedItem="{Binding Artist, Mode=TwoWay}"
                 Grid.Column="1" Grid.Row="3"
                     x:Name="MyPicker" />
 

@@ -7,7 +7,7 @@
              Title="Artists">
 
     <VerticalStackLayout>
-        <ListView ItemsSource="{Binding Artists}" ItemTapped="ListView_ItemTapped">
+        <ListView ItemsSource="{Binding Artists}" ItemTapped="ListView_ItemTapped" MaximumHeightRequest="300">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

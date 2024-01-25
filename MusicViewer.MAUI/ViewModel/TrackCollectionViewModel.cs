@@ -23,7 +23,7 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         private IEnumerable<Genre> genres = Enum.GetValues(typeof(Genre)).Cast<Genre>();
 
         [ObservableProperty]
-        private IEnumerable<IArtist> artists;
+        private ObservableCollection<IArtist> artists;
 
         [ObservableProperty]
         private TrackViewModel? editedTrack;
@@ -39,9 +39,15 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         public TrackCollectionViewModel(BLController blc)
         {
             this.blc = blc;
-            Artists = this.blc.GetArtists();
+
+            RefreshArtists();
             Filter = new TrackFilter();
             Search();
+        }
+
+        public void RefreshArtists()
+        {
+            Artists = new ObservableCollection<IArtist>(blc.GetArtists());
         }
 
         [RelayCommand]
@@ -62,17 +68,7 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
             blc.SaveTrack(EditedTrack!.GetModifiedTrack());
             EditingExisting = true;
 
-            List<TrackViewModel> list = new List<TrackViewModel>();
-            foreach (ITrack track in blc.GetTracks())
-            {
-                list.Add(new TrackViewModel(track));
-            }
-            Tracks = new ObservableCollection<TrackViewModel>(list.OrderBy(t => t.ID));
-
-
-            //List<IArtist> tmp = Artists.ToList();
-            //tmp[tmp.FindIndex(a => a.ID == EditedTrack!.Artist.ID)] = ((ArtistViewModel)EditedTrack!.Artist).Artist;
-            //Artists = tmp;
+            Search();
         }
 
 
@@ -116,22 +112,21 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         [RelayCommand]
         public void Search()
         {
-            //var allTracks = blc.GetTracks();
-            //IEnumerable<ITrack>? filteredTracks = Filter.Filter(allTracks);
+            var allTracks = blc.GetTracks();
+            IEnumerable<ITrack>? filteredTracks = Filter.Filter(allTracks);
 
-
-            //List<TrackViewModel> list = new List<TrackViewModel>();
-            //foreach (ITrack track in filteredTracks)
-            //{
-            //    list.Add(new TrackViewModel(track));
-            //}
-            //Tracks = new ObservableCollection<TrackViewModel>(list.OrderBy(t => t.ID));
-
-            Tracks = new ObservableCollection<TrackViewModel>();
-            foreach (ITrack track in blc.GetTracks())
+            List<TrackViewModel> list = new List<TrackViewModel>();
+            foreach (ITrack track in filteredTracks)
             {
-                Tracks.Add(new TrackViewModel(track));
+                list.Add(new TrackViewModel(track));
             }
+            Tracks = new ObservableCollection<TrackViewModel>(list.OrderBy(t => t.ID));
+
+            //Tracks = new ObservableCollection<TrackViewModel>();
+            //foreach (ITrack track in blc.GetTracks())
+            //{
+            //    Tracks.Add(new TrackViewModel(track));
+            //}
 
 
             CreateNewTrack();
@@ -158,9 +153,8 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
 
         public void OnAppearing(object sender, EventArgs e)
         {
-            Artists = blc.GetArtists();
+            RefreshArtists();
             Search();
-
 		}
     }
 }

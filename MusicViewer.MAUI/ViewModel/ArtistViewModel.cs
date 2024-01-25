@@ -31,5 +31,12 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         {
             return new ArtistViewModel(Artist);
         }
+
+        public IArtist GetModifiedArtist()
+        {
+            Artist.Name = Name;
+
+            return Artist;
+        }
     }
 }

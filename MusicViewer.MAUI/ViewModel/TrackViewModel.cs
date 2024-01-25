@@ -32,8 +32,8 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         {
             iD = track.ID;
             name = track.Name;
-            //artist = track.Artist;
-            artist = new ArtistViewModel(track.Artist);
+            artist = track.Artist;
+            //artist = new ArtistViewModel(track.Artist);
             releaseYear = track.ReleaseYear;
             genre = track.Genre;
 
@@ -48,11 +48,12 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         public ITrack GetModifiedTrack()
         {
             Track.Name = Name;
-            Track.Artist = ((ArtistViewModel)Artist).Artist;
+            Track.Artist = Artist;
+            //Track.Artist = ((ArtistViewModel)Artist).Artist;
             Track.ReleaseYear = ReleaseYear;
             Track.Genre = Genre;
 
-            Artist = new ArtistViewModel(Track.Artist);
+            //Artist = new ArtistViewModel(Track.Artist);
 
             return Track;
         }

@@ -59,7 +59,7 @@ namespace INF148187148204.MusicViewer.MAUI.ViewModel
         [RelayCommand(CanExecute = nameof(CanSaveArtist))] 
         public void SaveArtist() 
         { 
-            blc.SaveArtist(EditedArtist);
+            blc.SaveArtist(EditedArtist.GetModifiedArtist()!);
             EditingExisting = true;
 
             Artists = new ObservableCollection<ArtistViewModel>();

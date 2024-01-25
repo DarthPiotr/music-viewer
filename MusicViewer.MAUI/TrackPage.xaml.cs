@@ -19,6 +19,6 @@ public partial class TrackPage : ContentPage
     private void TrackContentPageName_Appearing(object sender, EventArgs e)
     {
         (BindingContext as TrackCollectionViewModel)!.OnAppearing(sender, e);
-        var p = MyPicker;
+        //MyPicker.ItemsSource = (System.Collections.IList)(BindingContext as TrackCollectionViewModel).Artists;
     }
 }
